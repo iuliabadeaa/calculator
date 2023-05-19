@@ -1,53 +1,92 @@
 from tkinter import *
-window = Tk()
-window.title("CALCULATOR")
-window.geometry("500x500")
-window.resizable(True, True)
+root = Tk()
+root.title("CALCULATOR")
+root.geometry("310x420")
+root.resizable(True, True) 
 
-lbl1=Label(window,text="operand 1:")
-lbl1.place(x=15,y=200)
-operand1=Entry(window)
-operand1.place(x=100,y=200)
 
-lbl2=Label(window,text="operand 2:")
-lbl2.place(x=215,y=200)
-operand2=Entry(window)
-operand2.place(x=300, y=200)
+def button_click(symbol):
+    current=entry_operands.get()
+    entry_operands.delete(0,END)
+    entry_operands.insert(0,str(current)+str(symbol))
 
-def addop():
-    op1=int(operand1.get())
-    op2=int(operand2.get())
-    sum_=int(op1+op2)
-    print(sum_)
+def button_clearf():
+    entry_operands.delete(0,END)
 
-def subop():
-    op1=int(operand1.get())
-    op2=int(operand2.get())
-    sub_=int(op1-op2)
-    print(sub_)
+def button_addf():
+    first_op=entry_operands.get()
+    global f_num 
+    global math 
+    math = "add"
+    f_num = float(first_op)
+    entry_operands.delete(0,END)
 
-def multiplyop():
-    op1=int(operand1.get())
-    op2=int(operand2.get())
-    multiply_=int(op1*op2)
-    print(multiply_)
+def button_substrf():
+    first_op=entry_operands.get()
+    global f_num 
+    global math 
+    math="sub"
+    f_num = float(first_op)
+    entry_operands.delete(0,END)
 
-def divop():
-    op1=float(operand1.get())
-    op2=float(operand2.get())
-    div=float(op1/op2)
-    print(div)
+def button_multiplyf():
+    first_op=entry_operands.get()
+    global f_num 
+    global math
+    math="mul"
+    f_num = float(first_op)
+    entry_operands.delete(0,END)
 
-sugestive_label=Label(window,text="choose an operation:")
-sugestive_label.place(x=30,y=225)
+def button_dividef():
+    first_op=entry_operands.get()
+    global f_num 
+    global math
+    math="div"
+    f_num = float(first_op)
+    entry_operands.delete(0,END)
 
-add=Button(window, text="+",command=addop)
-add.place(x=20,y=250)
-sub=Button(window, text="-",command=subop)
-sub.place(x=50,y=250)
-multiply=Button(window, text="*",command=multiplyop)
-multiply.place(x=80,y=250)
-divide=Button(window, text="/",command=divop)
-divide.place(x=110,y=250)
+def button_percentagef():
+    first_op=entry_operands.get()
+    global f_num 
+    f_num = float(first_op)
+    entry_operands.delete(0,END)
+    entry_operands.insert(0,f_num/100)
 
-window.mainloop()
+def button_equalf():
+    second_op=entry_operands.get()
+    entry_operands.delete(0,END)
+    if math == "add":
+        entry_operands.insert(0,f_num+float(second_op))
+    if math == "sub":
+        entry_operands.insert(0,f_num-float(second_op))
+    if math == "mul":
+        entry_operands.insert(0,f_num*float(second_op))
+    if math == "div":
+        entry_operands.insert(0,f_num/float(second_op))
+
+
+
+entry_operands=Entry(root, width=28, font=('Segoe UI Symbol', 15), bg=("#A0A0A0"), borderwidth=5)
+entry_operands.place(x=0,y=0)
+button1=Button(root, text=("1"),width=7, font=('Segoe UI Symbol', 15), bg=("#A0A0A0"), borderwidth=5, command= lambda: button_click(1)).place(x=10,y=50)
+button2=Button(root, text=("2"),width=7, font=('Segoe UI Symbol', 15), bg=("#A0A0A0"), borderwidth=5, command= lambda: button_click(2)).place(x=110,y=50)
+button3=Button(root, text=("3"),width=7, font=('Segoe UI Symbol', 15), bg=("#A0A0A0"), borderwidth=5, command= lambda: button_click(3)).place(x=210,y=50)
+button4=Button(root, text=("4"),width=7, font=('Segoe UI Symbol', 15), bg=("#A0A0A0"), borderwidth=5, command= lambda: button_click(4)).place(x=10,y=110)
+button5=Button(root, text=("5"),width=7, font=('Segoe UI Symbol', 15), bg=("#A0A0A0"), borderwidth=5, command= lambda: button_click(5)).place(x=110,y=110)
+button6=Button(root, text=("6"),width=7, font=('Segoe UI Symbol', 15), bg=("#A0A0A0"), borderwidth=5, command= lambda: button_click(6)).place(x=210,y=110)
+button7=Button(root, text=("7"),width=7, font=('Segoe UI Symbol', 15), bg=("#A0A0A0"), borderwidth=5, command= lambda: button_click(7)).place(x=10,y=170)
+button8=Button(root, text=("8"),width=7, font=('Segoe UI Symbol', 15), bg=("#A0A0A0"), borderwidth=5, command= lambda: button_click(8)).place(x=110,y=170)
+button9=Button(root, text=("9"),width=7, font=('Segoe UI Symbol', 15), bg=("#A0A0A0"), borderwidth=5, command= lambda: button_click(9)).place(x=210,y=170)
+button_clear=Button(root,text=("CLEAR"), width=7, font=('Segoe UI Symbol', 15), bg=("#A0A0A0"), borderwidth=5, command=button_clearf).place(x=10,y=230)
+button0=Button(root, text=("0"),width=7, font=('Segoe UI Symbol', 15), bg=("#A0A0A0"), borderwidth=5, command= lambda: button_click(0)).place(x=110,y=230)
+button_equal=Button(root, text=("="),width=7, font=('Segoe UI Symbol', 15), bg=("#A0A0A0"), borderwidth=5, command=button_equalf).place(x=210,y=230)
+button_add=Button(root,text=("+"), width=7, font=('Segoe UI Symbol', 15), bg=("#A0A0A0"), borderwidth=5, command= button_addf).place(x=10,y=290)
+button_substr=Button(root, text=("-"),width=7, font=('Segoe UI Symbol', 15), bg=("#A0A0A0"), borderwidth=5, command=button_substrf).place(x=110,y=290)
+button_multiply=Button(root, text=("x"),width=7, font=('Segoe UI Symbol', 15), bg=("#A0A0A0"), borderwidth=5, command=button_multiplyf).place(x=210,y=290)
+button_divide=Button(root,text=(":"), width=7, font=('Segoe UI Symbol', 15), bg=("#A0A0A0"), borderwidth=5, command=button_dividef).place(x=10,y=350)
+button_percentage=Button(root, text=("%"),width=7, font=('Segoe UI Symbol', 15), bg=("#A0A0A0"), borderwidth=5, command=button_percentagef).place(x=110,y=350)
+button_point=Button(root, text=("."),width=7, font=('Segoe UI Symbol', 15), bg=("#A0A0A0"), borderwidth=5, command=lambda:button_click('.')).place(x=210,y=350)
+
+
+
+root.mainloop()
